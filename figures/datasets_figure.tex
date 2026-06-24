@@ -1,0 +1,7 @@
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=1.0\linewidth]{Figures/datasets_figure_plasma.pdf}
+\caption{\textbf{Comparison of LiDAR point cloud datasets for 3D HPE and HMR}. For each dataset, we show an example scene and a person instance, which is depicted with a red bounding box in the scene.
+The figure shows differences in scanning patterns across datasets. For example, while both WOD~\cite{sunScalabilityPerceptionAutonomous2020} and SLOPER4D~\cite{daiSLOPER4DSceneAwareDataset2023} are captured using RMB pattern LiDARs, SLOPER4D achieves a denser scene due to its sensor having twice as many beams. In contrast, Human-M3~\cite{fanHumanM3MultiviewMultimodal2023} produces the sparsest point clouds, as its NRS pattern requires longer integration times for higher density. Self-occlusion is visible in WOD (e.g., cars) and SLOPER4D (e.g., humans), where only surfaces facing the sensor are captured. Human-M3, however, shows no self-occlusion because it fuses four LiDAR views in a post-processing step, covering all sides of the scene. Note that the humans shown in each example are at different distances from their respective sensors, which partly affects point density. This figure should be used primarily to compare scanning patterns and general scene characteristics; for fair comparisons of human point cloud density, refer to Section~\ref{sec:datasets_stats} and particularly Table~\ref{tab:dataset_intrinsic_stats}.} 
+\label{fig:datasets_figures} 
+\end{figure*}
