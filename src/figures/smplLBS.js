@@ -37,12 +37,13 @@ function matmul9(A, oA, B, oB, out, oC) {
 // ─── Data loading ─────────────────────────────────────────────────────────────
 
 export async function loadSMPL() {
+  const base = import.meta.env.BASE_URL
   const [vtBuf, sdBuf, wtBuf, faBuf, metaRes] = await Promise.all([
-    fetch('/smpl/vtemplate.bin').then(r => r.arrayBuffer()),
-    fetch('/smpl/shapedirs10.bin').then(r => r.arrayBuffer()),
-    fetch('/smpl/weights.bin').then(r => r.arrayBuffer()),
-    fetch('/smpl/faces.bin').then(r => r.arrayBuffer()),
-    fetch('/smpl/smpl_meta.json').then(r => r.json()),
+    fetch(`${base}smpl/vtemplate.bin`).then(r => r.arrayBuffer()),
+    fetch(`${base}smpl/shapedirs10.bin`).then(r => r.arrayBuffer()),
+    fetch(`${base}smpl/weights.bin`).then(r => r.arrayBuffer()),
+    fetch(`${base}smpl/faces.bin`).then(r => r.arrayBuffer()),
+    fetch(`${base}smpl/smpl_meta.json`).then(r => r.json()),
   ])
   return {
     vT:     new Float32Array(vtBuf),   // (6890*3)
