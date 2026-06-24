@@ -299,7 +299,7 @@ export function SyntheticDataSlide({ slideNum, total }) {
           </div>
           <div className="col">
             <div className="fig-pdf" style={{ flex: 1, minHeight: 0 }}>
-              <iframe src="/figures/ray_casting_low_ior.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Ray casting pipeline" />
+              <iframe src="figures/ray_casting_low_ior.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Ray casting pipeline" />
             </div>
             <div className="fig-caption">Synthetic LiDAR via SMPL mesh ray casting</div>
           </div>
@@ -355,7 +355,7 @@ export function PretrainingSlide({ slideNum, total }) {
         </div>
         <div className="col">
           <div className="fig-pdf" style={{ flex: 1, minHeight: 0 }}>
-            <iframe src="/figures/pretraining.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Pre-training overview" />
+            <iframe src="figures/pretraining.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Pre-training overview" />
           </div>
           <div className="fig-caption">Synthetic pre-training pipeline (GC-KPL, ReMP, UniPVU-Human)</div>
         </div>

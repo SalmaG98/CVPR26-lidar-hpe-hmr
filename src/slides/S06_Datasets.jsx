@@ -36,7 +36,7 @@ export function DatasetsOverviewSlide({ slideNum, total }) {
         ))}
       </div>
       <div className="fig-pdf wide" style={{ flex: 1, height: 'auto', minHeight: 160 }}>
-        <iframe src="/figures/datasets_figure_plasma.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Dataset comparison" />
+        <iframe src="figures/datasets_figure_plasma.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Dataset comparison" />
       </div>
       <div className="fig-caption">Scene and human instance comparison across WOD, SLOPER4D, and Human-M3 (from the paper)</div>
     </Slide>

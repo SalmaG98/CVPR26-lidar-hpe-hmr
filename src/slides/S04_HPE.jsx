@@ -252,7 +252,7 @@ export function WSHPEOverviewSlide({ slideNum, total }) {
         <div className="col" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div className="fig-pdf" style={{ flex: 1, minHeight: 0 }}>
             <iframe
-              src="/figures/ws_pipeline.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit"
+              src="figures/ws_pipeline.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit"
               title="WS pipeline"
             />
           </div>

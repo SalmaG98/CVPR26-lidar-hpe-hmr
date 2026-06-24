@@ -200,7 +200,7 @@ export function CommonHMRPipelineSlide({ slideNum, total }) {
         </div>
         <div className="col">
           <div className="fig-pdf" style={{ flex: 1, minHeight: 0 }}>
-            <iframe src="/figures/HMR_common_pipeline_reshaped.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="HMR pipeline" />
+            <iframe src="figures/HMR_common_pipeline_reshaped.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="HMR pipeline" />
           </div>
           <div className="fig-caption">Common training pipeline for LiDAR-based HMR methods (from the paper)</div>
         </div>
@@ -341,7 +341,7 @@ export function OptimizationPipelinesSlide({ slideNum, total }) {
         </div>
         <div className="col">
           <div className="fig-pdf" style={{ flex: 1, minHeight: 0 }}>
-            <iframe src="/figures/Optimization_common_pipeline.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Optimization pipeline" />
+            <iframe src="figures/Optimization_common_pipeline.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit&zoom=page-fit" title="Optimization pipeline" />
           </div>
           <div className="fig-caption">Common multi-modal optimization pipeline used by dataset annotation methods (from the paper)</div>
         </div>
