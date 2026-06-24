@@ -1,0 +1,79 @@
+\begin{figure*}[ht]
+
+\tikzset{
+basic/.style  = {draw, text width=6cm, drop shadow, font=\large, rectangle},
+basic1/.style  = {draw,  drop shadow, font=\sffamily, rectangle},
+root/.style   = {basic, rounded corners=2pt, thin, align=center, fill=mh1!20,text width=4.5cm},
+secnode/.style = {basic, thin, rounded corners=2pt, align=center, fill=mh1!20,text width=4.5cm,},
+subsecnode/.style = {basic, thin, rounded corners=2pt, align=center, fill=mh4!20,text width=4.5cm,},
+parnode/.style = {basic, thin, align=center, fill=mh7!20},
+edge from parent/.style={draw=black, edge from parent fork right}
+}
+
+\centering
+\resizebox{\textwidth}{!}{
+\begin{forest}
+    multiple directions={minimum height=4ex, anchor=center, forked edge}
+    % for tree={
+    % font=\normal,
+    % grow=east,
+    % growth parent anchor=east,s
+    % l sep=35pt,
+    % parent anchor=east,
+    % child anchor=west,
+    % edge path={\noexpand\path[\forestoption{edge},->, >={latex}] 
+    %      (!u.parent anchor) -- +(5pt,0pt) |- (.child anchor)
+    %      \forestoption{edge label};}
+    % }
+  %   for tree={
+  %   % my node,
+  %   font=\large, % Larger font for visibility
+  %   text width=6.2cm, % Fixed width for all nodes
+  %   % text height=1cm, % Fixed width for all nodes
+  %   align=center, % Centered text in nodes
+  %   draw, 
+  %   % rounded corners, % Node styling
+  %   fill=gray!10, % Light background for visibility
+  %   l sep=35pt, % Increased level separation
+  %   s sep=15pt, % Increased sibling separation
+  %   grow'=east, % Ensure tree grows east
+  %   edge={gray, thick},
+  %   parent anchor=east,
+  %   child anchor=west,
+  %   edge path={
+  %     \noexpand\path [draw, \forestoption{edge}] (!u.parent anchor) -- +(10pt,0) |- (.child anchor)\forestoption{edge label};
+  %   },
+  % }
+  [\large {\shortstack{LiDAR-based \\ 3D HPE/HMR}}, root, grow'=south
+    [, grow' subtree=east
+    [3D Human Mesh Recovery\\from LiDAR Point Clouds~\ref{sec:hmr}, secnode
+      [LiDAR-only Human\\Mesh Recovery~\ref{subsec:lidar_only_hmr}, subsecnode
+        [Sparse-to-Dense\\Reconstruction~\ref{par:sparse_to_dense_recon}, parnode]
+        [Spatio-temporal Modeling\\for Robustness~\ref{par:st_modeling_robustness}, parnode]
+        [Distillation-based\\ Latent Prior Learning~\ref{par:ws_latent_prior}, parnode]
+      ]
+      [Fusing LiDAR and\\Other Modalities for\\Human Mesh Recovery~\ref{subsec:fusing_lidar_and_other_modalities_hmr}, subsecnode
+        [Calibration-free\\Fusion~\ref{par:calib_free_fusion}, parnode]
+        [Fusion from LiDAR\\and IMU/RGB~\ref{par:fusion_lidar_imu}, parnode]
+        [Multi-modal Optimization\\Pipelines~\ref{par:multi-modal_optim}, parnode]
+      ]
+    ]]
+    [, grow subtree=west
+    [3D Human Pose Estimation\\from LiDAR Point Clouds~\ref{sec:hpe}, secnode,
+      [Supervised Human\\Pose Estimation~\ref{subsec:supervised_hpe}, subsecnode
+        [Sparsity-conscious\\Design~\ref{par:spasity_conscious_design}, parnode]
+        [Transformers as the\\Backbone~\ref{par:transformers_backbone}, parnode]
+        [Supervision Beyond\\Pose~\ref{par:supervision_beyond_pose}, parnode]
+        [Learning from Synthetic\\Data~\ref{par:learning_from_synth_data}, parnode]
+      ]
+      [Weakly-supervised\\Human Pose Estimation~\ref{subsec:ws_hpe}, subsecnode
+        [Bridging the Annotation\\Gap via Weak Supervision~\ref{par:briging_annotation_gap}, parnode]
+        [Bridging Modalities via\\Fusion~\ref{par:bridging_modality}, parnode]
+      ]
+      [Unsupervised Human\\Pose Estimation~\ref{subsec:unsup_hpe}, subsecnode]
+    ]]
+  ]
+\end{forest}}
+\caption{\textbf{Systematic categorization of 3D HPE and HMR methods from LiDAR point clouds.} We note that a single method may fall into multiple categories.}
+\label{fig:taxonomy}
+\end{figure*}

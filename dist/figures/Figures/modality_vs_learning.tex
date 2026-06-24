@@ -1,0 +1,83 @@
+\begin{figure*}[h]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  yellow/.style={text=orange!70!black, align=left},
+  red/.style={text=red!70!black, align=left},
+  blue/.style={text=blue!70!black, align=left}
+]
+
+% Axes
+\draw[->, line width=0.5mm, color=darkgray] (0,0) -- (14.5,0) node[right] {LEARNING};
+\draw[->, line width=0.5mm, color=darkgray] (0,0) -- (0,5.8) node[above] {MODALITY};
+
+% X-axis labels
+\node at (3, -0.5) {\textbf{ \textcolor{darkgray} {Supervised}}};
+\node at (9, -0.5) {\textbf{ \textcolor{darkgray} {Weakly-supervised}}};
+\node at (13, -0.5) {\textbf{\textcolor{darkgray} {Unsupervised}}};
+
+
+% Background shading
+\fill[mh1!20] (0.2,0.2) rectangle (6.2, 2.8);  
+\fill[mh1!20] (0.2,3) rectangle (6.2, 5.4);  
+
+\fill[mh4!20] (6.4, 0.2) rectangle (11.6,2.8);
+\fill[mh4!20] (6.4, 3) rectangle (11.6,5.4);  
+  
+
+\fill[mh7!20] (11.8,0.2) rectangle (14.2 , 2.8); 
+
+
+% Y-axis labels
+\node[rotate=90] at (-0.6, 1.5) {\textbf{\textcolor{darkgray} {LiDAR}}};
+\node[rotate=90] at (-0.6, 4.2) {\textbf{\textcolor{darkgray} {LiDAR + RGB/IMU}}};
+
+
+% Sample nodes
+% Sample colored task labels (without shapes)
+\node[color=mh3, align=left, text width=4cm] at (2.4, 1.6) {
+   LidPose \cite{kovacsLidPoseRealTime3D2024} \\ 
+  LPFormer \cite{yeLPFormerLiDARPose2024} \\ VoxelKP \cite{shiVoxelKPVoxelbasedNetwork2023}\\
+  LiDAR-HMP \cite{hanPracticalHumanMotion2024} \\ DAPT \cite{anPretrainingDensityAwarePose2025} \\ UniPVU-Human \cite{xuUnifiedFrameworkHumancentric2024}
+};
+\node[color=mh3, align=left, text width=4cm] at (2.4, 4.2) {
+   MMVP \cite{fanHumanM3MultiviewMultimodal2023} \\
+   HUM3DIL \cite{zanfirHUM3DILSemisupervisedMultimodal2022} 
+};
+
+\node[color=mh5, align=left, text width=4cm] at (5.5, 4.2) {
+   FreeCap \cite{xueFreeCapHybridCalibrationFree2025} \\ LIP \cite{renLiDARaidInertialPoser2023}\\ SMPLify-3D \cite{dumontImprovingImagebased3D}  \\ PEAR-Proj \cite{linHmPEARDatasetHuman2024} 
+};
+\node[color=mh5, align=left, text width=4cm] at (5.5, 1.6) {
+   LiDAR-HMR \cite{fanLiDARHMR3DHuman2025} \\ NE-3D-HPE \cite{zhangNeighborhoodEnhanced3DHuman2024} \\
+  LiDARCap \cite{liLiDARCapLongrangeMarkerless2022} \\ LiveHPS \cite{renLiveHPSLiDARbasedScenelevel2024} \\
+ LiDARCapV2 \cite{zhangLiDARCapV23DHuman2024} \\ LiveHPS++ \cite{renLiveHPSRobustCoherent2024}
+};
+
+\node[color=mh3, align=left,  text width=4cm] at (8.6, 4.2) {
+    HPERL \cite{furstHPERL3DHuman2021} \\
+    WS-HPE \cite{zhengMultimodal3DHuman2022} \\
+    WS-Fusion \cite{bauerWeaklySupervisedMultiModal2023} \\
+    FusionPose \cite{congWeaklySupervised3D2023}\\
+    LiCamPose \cite{panLiCamPoseCombiningMultiView2025}
+};
+\node[color=mh5, align=left, text width=4cm] at (11.1, 4.2) {
+    SLOPER4D \cite{daiSLOPER4DSceneAwareDataset2023}* \\ Human-M3 \cite{fanHumanM3MultiviewMultimodal2023}* \\ HSC4D \cite{daiHSC4DHumancentered4D2022}* \\ CIMI4D~\cite{yanCIMI4DLargeMultimodal2023}*
+};
+
+\node[color=mh5, align=left,text width=4cm] at (10.3, 1.4) {ReMP \cite{jangReMPReusableMotion2025} };
+
+\node[color=mh3, align=left] at (13, 1.4) {GC-KPL \cite{weng3DHumanKeypoints2023} };
+
+    % Legend
+\node[draw, inner sep=3pt, font=\footnotesize, anchor=north east ] at (14.2, 4.6){
+
+    \begin{tabular}{@{}cl@{}}
+ \tikz\fill[mh3] (0,0) circle (0.1); &  \hspace{-10pt} \textbf{HPE Methods}\\[2pt]
+ \tikz\fill[mh5](0,0) circle (0.1); & \hspace{-10pt} \textbf{HMR Methods}\\[2pt]
+    \end{tabular}
+};
+\end{tikzpicture}
+\caption{\textbf{Distribution of 3D HPE and HMR methods across input modalities and supervision levels.} We observe that supervised HPE methods rely on LiDAR, whereas weakly supervised approaches tend to incorporate additional modalities alongside LiDAR. Notably, the use of reduced supervision remains largely unexplored in HMR. * indicates that the proposed HMR methods leverage weak supervision for 3D data annotation in their proposed datasets.}
+\label{fig:modality_vs_learning}
+\end{figure*}

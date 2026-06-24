@@ -1,0 +1,21 @@
+\begin{tikzpicture}
+
+% \definecolor{mh1}{RGB}{13,8,135}
+\tkzKiviatDiagramFromFile[
+        scale=1,
+        label distance=.5cm,
+        gap     = 1,label space=1.5,  
+        lattice = 4]{Figures/tableae.dat}
+\tkzKiviatLineFromFile[thick,
+                       color      = mh7,
+                       mark size  = 4pt,
+                       fill       = mh7!90]{Figures/tableae.dat}{1}
+\tkzKiviatLineFromFile[thick,
+                       color      = mh4,
+                       mark size  = 4pt,
+                       fill       = mh4!40]{Figures/tableae.dat}{2} 
+\tkzKiviatLineFromFile[thick,
+                       color      = mh1,
+                       mark size  = 4pt,
+                       fill       = mh1!30]{Figures/tableae.dat}{3}
+\end{tikzpicture}

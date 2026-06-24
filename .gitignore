@@ -1,0 +1,19 @@
+# Dependencies
+/node_modules
+
+# Vite
+/dist
+.vite/
+
+# gh-pages cache
+.cache
+node_modules/.cache/gh-pages/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local .env file
+.env.local

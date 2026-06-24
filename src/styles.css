@@ -1,0 +1,536 @@
+:root {
+  --bg:         #f4f7fc;
+  --surface:    #ffffff;
+  --surface2:   #edf2fb;
+  --surface3:   #e2eaf8;
+  --border:     #c8d5e8;
+  --text:       #1a2540;
+  --text-muted: #4a607a;
+  --text-dim:   #7a93b5;
+
+  --blue:    #3b82f6;
+  --cyan:    #06b6d4;
+  --purple:  #8b5cf6;
+  --emerald: #10b981;
+  --amber:   #f59e0b;
+  --red:     #ef4444;
+  --pink:    #ec4899;
+  --indigo:  #6366f1;
+  --teal:    #14b8a6;
+  --orange:  #f97316;
+
+  --c-intro:      #3b82f6;
+  --c-background: #8b5cf6;
+  --c-overview:   #06b6d4;
+  --c-hpe:        #10b981;
+  --c-hmr:        #f59e0b;
+  --c-datasets:   #ef4444;
+  --c-benchmarks: #ec4899;
+  --c-future:     #6366f1;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  width: 100%; height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── Progress bar ─────────────────────────────── */
+.progress-bar-track {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  background: rgba(0,0,0,0.07); z-index: 100;
+}
+.progress-bar-fill {
+  height: 100%; background: var(--accent, var(--cyan));
+  transition: width 0.35s ease;
+}
+
+/* ── App shell ────────────────────────────────── */
+.app {
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+
+.slide-viewport {
+  flex: 1; position: relative; overflow: hidden;
+}
+
+.slide-wrapper {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+  display: flex; align-items: stretch; justify-content: stretch;
+}
+
+/* ── Transitions ──────────────────────────────── */
+@keyframes slideIn  { from { opacity:0; transform:translateX(40px) } to { opacity:1; transform:none } }
+@keyframes slideOut { from { opacity:1; transform:none } to { opacity:0; transform:translateX(-40px) } }
+@keyframes fadeIn   { from { opacity:0 } to { opacity:1 } }
+
+.anim-enter  { animation: slideIn  .28s cubic-bezier(.25,.46,.45,.94) forwards; }
+.anim-exit   { animation: slideOut .20s ease forwards; pointer-events:none; }
+
+/* ── Navigation ───────────────────────────────── */
+.nav-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 48px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 24px;
+  background: rgba(244,247,252,0.95); backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border); z-index: 50;
+}
+
+.nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text-muted);
+  cursor: pointer; font-size: 13px; font-family: inherit;
+  transition: all .15s;
+}
+.nav-btn:hover { border-color: var(--accent, var(--cyan)); color: var(--text); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+.nav-counter {
+  font-size: 12px; color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.nav-overview-btn {
+  padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted);
+  cursor: pointer; font-size: 12px; font-family: inherit;
+  letter-spacing: .05em; transition: all .15s;
+}
+.nav-overview-btn:hover { border-color: var(--border); background: var(--surface2); color: var(--text); }
+
+/* ── Overview modal ───────────────────────────── */
+.overview-modal {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(244,247,252,0.97); backdrop-filter: blur(12px);
+  display: grid; place-items: start center;
+  overflow-y: auto; padding: 40px 24px 80px;
+  animation: fadeIn .2s ease;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; max-width: 1400px; width: 100%;
+}
+
+.overview-thumb {
+  aspect-ratio: 16/9; border-radius: 8px;
+  border: 1px solid var(--border); overflow: hidden;
+  cursor: pointer; transition: all .15s;
+  background: var(--surface);
+  display: flex; flex-direction: column;
+  padding: 10px;
+}
+.overview-thumb:hover { border-color: var(--accent, var(--cyan)); transform: scale(1.02); }
+.overview-thumb.active { border-color: var(--accent, var(--cyan)); box-shadow: 0 0 0 2px var(--accent, var(--cyan)); }
+.overview-thumb-num { font-size: 10px; color: var(--text-dim); margin-bottom: 4px; }
+.overview-thumb-title { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.overview-thumb-section { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
+
+.overview-close {
+  position: fixed; top: 16px; right: 24px; z-index: 201;
+  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text-muted);
+  cursor: pointer; font-size: 13px; font-family: inherit;
+}
+.overview-close:hover { color: var(--text); }
+
+/* ── Slide base ───────────────────────────────── */
+.slide {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* top gradient accent */
+.slide::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent, var(--cyan)), transparent);
+  opacity: 0.7;
+}
+
+.slide-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 32px 0;
+  flex-shrink: 0;
+}
+
+.section-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--accent, var(--cyan)) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan)) 40%, transparent);
+  color: var(--accent, var(--cyan));
+}
+
+.slide-num {
+  font-size: 11px; color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.slide-title {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 700; color: var(--text);
+  padding: 10px 32px 0;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.slide-subtitle {
+  font-size: clamp(13px, 1.4vw, 17px);
+  font-weight: 400; color: var(--text-muted);
+  padding: 4px 32px 0;
+  flex-shrink: 0;
+}
+
+.slide-divider {
+  height: 1px; background: var(--border);
+  margin: 10px 32px; flex-shrink: 0;
+}
+
+.slide-body {
+  flex: 1; padding: 12px 32px 60px;
+  overflow: hidden; display: flex; flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Layouts ──────────────────────────────────── */
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; flex: 1; min-height: 0;
+}
+.two-col-6040 { grid-template-columns: 3fr 2fr; }
+.two-col-4060 { grid-template-columns: 2fr 3fr; }
+.two-col-7030 { grid-template-columns: 7fr 3fr; }
+
+.col { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+/* Cards inside a column stretch to fill available vertical space */
+.col > .card,
+.col > .card-accent,
+.col > .method-card { flex: 1; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 15px 18px;
+}
+.card-accent {
+  border-color: color-mix(in srgb, var(--accent, var(--cyan)) 40%, transparent);
+  background: color-mix(in srgb, var(--accent, var(--cyan)) 6%, var(--surface));
+}
+
+/* ── Typography ───────────────────────────────── */
+.h3 { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.h4 { font-size: 15px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .05em; }
+
+.bullet-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.bullet-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: clamp(14px, 1.55vw, 17px); color: var(--text); line-height: 1.5;
+}
+.bullet-list li::before {
+  content: ''; display: block; flex-shrink: 0;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent, var(--cyan));
+  margin-top: 7px;
+}
+.bullet-list li.sub { padding-left: 18px; color: var(--text-muted); font-size: 14px; }
+.bullet-list li.sub::before { width: 4px; height: 4px; background: var(--text-dim); }
+
+.highlight { color: var(--accent, var(--cyan)); font-weight: 600; }
+.em { color: var(--amber); font-style: italic; }
+.tag {
+  display: inline-block; padding: 1px 7px; border-radius: 4px;
+  font-size: 11px; font-weight: 600;
+  background: color-mix(in srgb, var(--accent, var(--cyan)) 20%, transparent);
+  color: var(--accent, var(--cyan));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan)) 40%, transparent);
+}
+
+/* ── Method chips / cards ─────────────────────── */
+.method-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.method-chip {
+  padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  border: 1px solid; white-space: nowrap;
+}
+
+.method-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
+}
+.method-card .method-name { font-size: 15px; font-weight: 700; color: var(--accent, var(--cyan)); margin-bottom: 5px; }
+.method-card .method-desc { font-size: 14px; color: var(--text-muted); line-height: 1.45; }
+
+/* ── Table ────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th {
+  background: var(--surface2); color: var(--text-muted);
+  padding: 7px 10px; text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .05em;
+}
+.data-table td {
+  padding: 7px 10px; border-bottom: 1px solid rgba(200,213,232,0.6);
+  color: var(--text); vertical-align: top;
+}
+.data-table tr:hover td { background: var(--surface2); }
+.data-table .best { color: var(--emerald); font-weight: 600; }
+.data-table .highlight-cell { background: color-mix(in srgb, var(--accent,var(--cyan)) 10%, transparent); }
+
+/* ── Equation block ───────────────────────────── */
+.equation {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(12px, 1.3vw, 15px);
+  color: var(--text); text-align: center;
+  line-height: 1.6;
+}
+.equation .eq-label { font-size: 11px; color: var(--text-muted); text-align: right; margin-top: 4px; font-family: 'Inter', sans-serif; }
+
+/* ── Figure container ─────────────────────────── */
+.fig-container {
+  flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+/* PDF iframes — let the browser PDF viewer scale to fit */
+.fig-container iframe {
+  width: 100%; height: 100%; border: none;
+}
+/* Raster images — always scale to contain */
+.fig-container img {
+  width: 100%; height: 100%; border: none;
+  object-fit: contain;
+}
+
+/* PDF wrapper — viewport-relative height so it scales on any screen */
+.fig-pdf {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  display: flex; align-items: stretch;
+}
+.fig-pdf iframe,
+.fig-pdf object,
+.fig-pdf embed {
+  width: 100%; border: none; flex: 1; display: block;
+}
+/* Heights scale with viewport height so they fit on any screen */
+.fig-pdf.landscape { height: clamp(160px, 36vh, 320px); }
+.fig-pdf.portrait  { height: clamp(200px, 44vh, 380px); }
+.fig-pdf.wide      { height: clamp(120px, 24vh, 220px); }
+.fig-pdf.tall      { height: clamp(220px, 52vh, 420px); }
+
+.fig-caption {
+  font-size: 11px; color: var(--text-dim); text-align: center;
+  margin-top: 4px; line-height: 1.4; font-style: italic;
+}
+
+/* ── Paper references bar ─────────────────────── */
+.slide-refs {
+  flex-shrink: 0;
+  padding: 6px 32px 8px;
+  border-top: 1px solid rgba(200,213,232,.6);
+  display: flex; flex-wrap: wrap; gap: 5px 10px;
+  align-items: center;
+}
+.ref-item {
+  font-size: 11px; color: var(--text-muted);
+  font-style: italic; white-space: nowrap;
+}
+.ref-item::before { content: '['; }
+.ref-item::after  { content: ']'; }
+
+/* ── Title slide specifics ────────────────────── */
+.title-slide {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 0 64px; text-align: center;
+  position: relative; overflow: hidden;
+  background: var(--bg);
+}
+.title-slide .title-badge {
+  display: inline-block; padding: 5px 16px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--cyan) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cyan) 40%, transparent);
+  color: var(--cyan); margin-bottom: 20px;
+}
+.title-slide h1 {
+  font-size: clamp(28px, 4vw, 52px); font-weight: 800;
+  line-height: 1.15; color: var(--text);
+  margin-bottom: 12px; max-width: 900px;
+}
+.title-slide h1 span { color: var(--cyan); }
+.title-slide .authors {
+  font-size: clamp(13px, 1.3vw, 16px); color: var(--text-muted);
+  margin-bottom: 28px; line-height: 1.6;
+}
+.title-slide .authors strong { color: var(--text); }
+.title-slide .event-info {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+  margin-top: 12px;
+}
+.title-slide .event-chip {
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--surface2);
+  font-size: 12px; color: var(--text-muted);
+}
+
+/* animated background dots */
+.title-bg {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.title-bg-dot {
+  position: absolute; border-radius: 50%;
+  background: var(--cyan); opacity: 0.04;
+  animation: pulse 4s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: .06 }
+  50%      { transform: scale(1.3); opacity: .12 }
+}
+
+/* ── Agenda slide ─────────────────────────────── */
+.agenda-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px; flex: 1;
+}
+.agenda-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  transition: border-color .2s;
+}
+.agenda-item:hover { border-color: var(--accent, var(--cyan)); }
+.agenda-item .agenda-num {
+  font-size: 28px; font-weight: 800;
+  color: color-mix(in srgb, var(--accent, var(--cyan)) 30%, transparent);
+  line-height: 1;
+}
+.agenda-item .agenda-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.agenda-item .agenda-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.agenda-item .agenda-time { font-size: 11px; color: var(--text-dim); margin-top: auto; }
+
+/* ── SMPL viz ─────────────────────────────────── */
+.smpl-container { display: flex; gap: 20px; align-items: flex-start; flex: 1; min-height: 0; }
+.smpl-fig { flex: 1; display: flex; align-items: center; justify-content: center; }
+
+/* ── Scan pattern canvas ──────────────────────── */
+.scan-canvas-wrap {
+  display: flex; gap: 16px; flex: 1; min-height: 0;
+}
+.scan-panel {
+  flex: 1; display: flex; flex-direction: column; gap: 8px;
+}
+.scan-panel canvas { border-radius: 8px; background: #030508; border: 1px solid var(--border); width: 100%; aspect-ratio: 1; }
+
+/* ── Metric animations ────────────────────────── */
+.metric-demo {
+  display: flex; gap: 20px; flex: 1; min-height: 0;
+}
+.metric-panel {
+  flex: 1; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+/* ── Spider chart ─────────────────────────────── */
+.spider-wrap {
+  display: flex; align-items: center; justify-content: center;
+  flex: 1; min-height: 0;
+}
+
+/* ── Taxonomy tree ────────────────────────────── */
+.tree-node {
+  display: flex; align-items: flex-start; gap: 0;
+  position: relative;
+}
+.tree-children {
+  display: flex; flex-direction: column; gap: 4px;
+  position: relative; padding-left: 16px;
+}
+.tree-children::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.tree-label {
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 12px; font-weight: 500; white-space: nowrap;
+  border: 1px solid var(--border); background: var(--surface2);
+  color: var(--text);
+}
+.tree-connector {
+  width: 16px; height: 1px; background: var(--border);
+  align-self: center; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ── Responsive font scaling ──────────────────── */
+@media (max-width: 1200px) {
+  .slide-title { font-size: 24px; }
+  .bullet-list li { font-size: 13px; }
+}
+
+/* ── Responsive: small screens (ThinkPad X13, etc.) ─ */
+/* Targets effective viewport heights ≤ 860px (common with 125–150% OS scaling) */
+@media (max-height: 860px) {
+  .slide-title       { font-size: clamp(17px, 2.4vw, 28px); padding-top: 6px; }
+  .slide-subtitle    { font-size: 12px; padding-top: 2px; }
+  .slide-body        { padding: 8px 26px 52px; gap: 8px; }
+  .slide-divider     { margin: 6px 26px; }
+  .slide-header      { padding: 10px 26px 0; }
+  .card              { padding: 9px 11px; }
+  .h3                { font-size: 13px; margin-bottom: 4px; }
+  .h4                { font-size: 11px; }
+  .bullet-list       { gap: 5px; }
+  .bullet-list li    { font-size: 12px; }
+  .bullet-list li.sub{ font-size: 11px; }
+  .method-card       { padding: 8px 10px; }
+  .method-card .method-name { font-size: 12px; }
+  .method-card .method-desc { font-size: 11px; }
+  .agenda-grid       { gap: 7px; }
+  .aitem,.agenda-item{ padding: 10px; }
+  .two-col           { gap: 16px; }
+  .fig-pdf.landscape { height: clamp(140px, 30vh, 260px); }
+  .fig-pdf.wide      { height: clamp(100px, 20vh, 180px); }
+}
+@media (max-height: 720px) {
+  .slide-title    { font-size: clamp(15px, 2vw, 22px); }
+  .slide-body     { padding: 6px 20px 48px; gap: 6px; }
+  .bullet-list li { font-size: 11px; }
+  .card           { padding: 7px 9px; }
+  .h3             { font-size: 12px; }
+}
+
+/* ── Utility ──────────────────────────────────── */
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.gap-8  { gap: 8px; }
+.gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; }
+.flex-1 { flex: 1; }
+.min-h-0 { min-height: 0; }
+.text-center { text-align: center; }
+.mt-auto { margin-top: auto; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.relative { position: relative; }
+.overflow-hidden { overflow: hidden; }
