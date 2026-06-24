@@ -1,0 +1,74 @@
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{cc}
+    \centering
+
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=7cm,
+            height=5cm,
+            xlabel={Year},
+            xtick={2015, 2018,  2021,  2024},
+            xtick style={draw=none},
+            ymin=500, ymax=7200,
+            grid=none,
+            ymajorticks=false,
+            tick label style={font=\small},
+            label style={font=\small},
+            title style={font=\small},
+            title={Number of publications},
+            yticklabels={},
+            % axis y line=none
+        ]
+            \addplot[color=mh2, mark=*] coordinates {
+(2015,838)  (2016,824)  (2017,1381)  (2018,1413)  (2019,1865)  
+(2020,3911)  (2021,3710)  (2022,4277)  (2023,5856)  (2024,6261)  
+            };
+            \node [above] at (axis cs:  2015,1000) {$838$};
+            \node [above] at (axis cs:  2018,1600) {$1413$};
+            \node [above] at (axis cs:  2021,2600) {$3710$};
+            \node [above] at (axis cs:  2024,6400) {$6261$};
+        \end{axis}
+    \end{tikzpicture} &
+\begin{tikzpicture}
+        \begin{axis}[
+            width=7cm,
+            height=5cm,
+            xlabel={Year},
+            xtick={2015, 2018,  2021,  2024},
+            xtick style={draw=none},
+            ymin=7500, ymax=165000,
+            grid=none,
+            ymajorticks=false,
+            tick label style={font=\small},
+            label style={font=\small},
+            title style={font=\small},
+            title={Number of citations},
+            yticklabels={},
+            % axis y line=none
+        ]
+            \addplot[color=mh2, mark=*] coordinates {
+(2015,13292)  (2016,16464)  (2017,19989)  (2018,25814)  (2019,34279)  
+(2020,47492)  (2021,68001)  (2022,91450)  (2023,120983)  (2024,142158)  
+            };
+            \node [above] at (axis cs:  2015,16900) {$13292$};
+            \node [above] at (axis cs:  2017.9,29000) {$25814$};
+            \node [above] at (axis cs:  2022.15,60000) {$68001$};
+            \node [above] at (axis cs:  2023.5,145900) {$142158$}; 
+        \end{axis}
+    \end{tikzpicture}
+    \vspace{-10pt}
+    \\
+
+\end{tabular}
+
+}
+
+
+
+
+														
+
+
+
+
+														
