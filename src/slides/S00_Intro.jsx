@@ -217,10 +217,10 @@ export function ChallengesSlide({ slideNum, total }) {
             ].map(([rgb, pc, lbl]) => (
               <div key={lbl} style={{ display: 'flex', gap: 8, flex: 1, minHeight: 0 }}>
                 <div className="fig-container" style={{ flex: 1 }}>
-                  <img src={`/figures/lidar_hpc_subfigures/${rgb}`} alt="" style={{ objectFit: 'cover' }}/>
+                  <img src={`figures/lidar_hpc_subfigures/${rgb}`} alt="" style={{ objectFit: 'cover' }}/>
                 </div>
                 <div className="fig-container" style={{ flex: 1 }}>
-                  <img src={`/figures/lidar_hpc_subfigures/${pc}`} alt="" style={{ objectFit: 'contain', padding: 4 }}/>
+                  <img src={`figures/lidar_hpc_subfigures/${pc}`} alt="" style={{ objectFit: 'contain', padding: 4 }}/>
                 </div>
                 <span style={{ fontSize: 10, color: 'var(--text-dim)', writing: 'vertical', alignSelf: 'center', writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>{lbl}</span>
               </div>
